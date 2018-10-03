@@ -11,12 +11,12 @@ Their usage is very similar to their React-Motion counterpart, except it exposes
 
 ### MotionState
 
-Motion provides interpolating from one style to another. While the style is in motion `state` is 
+Motion provides interpolating from one style to another.
 
 ```jsx
 <MotionState defaultStyle={{ x: 0 }} style={{ x: spring(10) }}>
   {
-    (interpolatingStyle, state) => <Component style={interpolatingStyle} animating={state} /> 
+    (interpolatingStyle, isAnimating) => <Component style={interpolatingStyle} animating={isAnimating} /> 
   }
 </MotionState>
 ```
@@ -34,7 +34,7 @@ See [React-Motion Docs: Motion](https://github.com/chenglou/react-motion/blob/ma
 
 #### States
 
-The `state` argument passed to the child function is a Boolean of if the style is in motion.
+The `isAnimating` argument passed to the child function is a `Boolean` of if the style is in motion.
 
 ### TransitionMotionState
 
