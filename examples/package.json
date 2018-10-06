@@ -1,0 +1,18 @@
+{
+  "name": "react-motion-state-examples",
+  "version": "1.0.0",
+  "description": "Examples of react-motion-state usage",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "webpack-dev-server --history-api-fallback",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "cloudratha",
+  "license": "MIT",
+  "devDependencies": {
+    "react-router-dom": "^4.3.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
+  }
+}
