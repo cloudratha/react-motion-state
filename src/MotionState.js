@@ -1,5 +1,5 @@
 import React from 'react';
-import { Motion, spring } from 'react-motion';
+import { Motion } from 'react-motion';
 
 class MotionState extends React.Component {
   constructor(props) {
@@ -9,18 +9,23 @@ class MotionState extends React.Component {
       animating: false
     };
 
+    this.hasRested = true;
+
     this.interpolateChild = this.interpolateChild.bind(this);
     this.onRest = this.onRest.bind(this);
   }
 
   interpolateChild(style) {
-    if (!this.state.animating) {
+    if (!this.hasRested && !this.state.animating) {
       this.setState({ animating: true });
+    } else {
+      this.hasRested = false;
     }
     return this.props.children(style, this.state.animating);
   }
 
   onRest() {
+    this.hasRested = true;
     if (this.state.animating) {
       this.setState({ animating: false });
     }
@@ -29,8 +34,8 @@ class MotionState extends React.Component {
   render() {
     return (
       <Motion
-        defaultStyle={{ left: 0 }}
-        style={{ left: spring(300) }}
+        defaultStyle={this.props.defaultStyle}
+        style={this.props.style}
         onRest={this.onRest}
       >
         {this.interpolateChild}
