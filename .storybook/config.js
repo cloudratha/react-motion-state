@@ -2,13 +2,13 @@ import { addDecorator, configure } from '@storybook/react';
 import { withOptions } from '@storybook/addon-options';
 import { version } from '../package.json';
 
-import './src/App.css';
+import '../examples/src/App.css';
 
 function loadStories() {
-  require('./src/motion/index.js');
-  require('./src/transition-motion/index.js');
-  require('./src/directional/index.js');
-  require('./src/conditional/index.js');
+  require('../examples/src/motion/index.js');
+  require('../examples/src/transition-motion/index.js');
+  require('../examples/src/directional/index.js');
+  require('../examples/src/conditional/index.js');
 }
 
 addDecorator(

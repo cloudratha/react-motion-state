@@ -26,7 +26,7 @@
     "webpack-cli": "^3.1.2"
   },
   "scripts": {
-    "storybook": "start-storybook -p 9001 -c examples",
+    "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o .out",
     "gh-pages": "git fetch origin && git checkout gh-pages && git reset --hard origin/gh-pages && git rebase origin/master --force-rebase && npm run storybook:build && git add . && git commit --amend --no-edit && git push origin gh-pages --force && git checkout master",
     "test": "echo \"Error: no test specified\" && exit 1"
