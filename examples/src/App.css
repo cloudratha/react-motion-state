@@ -1,0 +1,87 @@
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.Emoji {
+  position: absolute;
+  top: 45%;
+  left: 0;
+  font-size: 32px;
+  width: 60px;
+  height: 60px;
+  border: 2px solid black;
+  border-radius: 50%;
+}
+
+.Emoji__eye {
+  font-size: 64px;
+  margin-left: 10px;
+  line-height: 0;
+}
+
+.Emoji__mouth {
+  transform: rotate(90deg);
+  margin-top: 5px;
+  width: 64px;
+  text-align: center;
+  line-height: 0;
+}
+
+.Reveal {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Reveal__item {
+  position: relative;
+  width: 300px;
+  height: 100px;
+  border: 2px solid gray;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.Reveal__item > div {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.Directional {
+  display: flex;
+  flex: 0 0 100%;
+  min-height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.Directional__button {
+  border: none;
+  outline: 0;
+  position: absolute;
+  min-width: 80px;
+  min-height: 40px;
+  color: white;
+  background: purple;
+  text-align: center;
+  padding: 10px;
+  vertical-align: middle;
+  transition: background-color 0.3s;
+}
+
+.Conditional {
+  position: absolute;
+  padding: 20px;
+  background: gray;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+}

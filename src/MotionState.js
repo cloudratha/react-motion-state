@@ -5,7 +5,7 @@ import { Motion } from 'react-motion';
 
 const propTypes = {
   defaultStyle: PropTypes.objectOf(PropTypes.number),
-  states: PropTypes.objectOf(
+  style: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   ).isRequired,
   children: PropTypes.func.isRequired,

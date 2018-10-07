@@ -12,16 +12,21 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
+    "@storybook/addon-knobs": "^4.0.0-alpha.24",
+    "@storybook/addon-options": "^4.0.0-alpha.24",
+    "@storybook/react": "^4.0.0-alpha.24",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "eslint": "^5.6.1",
     "eslint-config-airbnb": "^17.1.0",
+    "moment": "^2.22.2",
     "react": ">=15.5.0",
     "react-dom": ">=15.5.0",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2"
   },
   "scripts": {
+    "storybook": "start-storybook -p 9001 -c examples",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
