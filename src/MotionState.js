@@ -1,5 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { Motion } from 'react-motion';
+
+const propTypes = {
+  defaultStyle: PropTypes.objectOf(PropTypes.number),
+  states: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
+  ).isRequired,
+  children: PropTypes.func.isRequired,
+  onRest: PropTypes.func,
+};
+
+const defaultProps = {
+  defaultStyle: null,
+  onRest: null,
+};
 
 class MotionState extends React.Component {
   constructor(props) {
@@ -47,5 +63,8 @@ class MotionState extends React.Component {
     );
   }
 }
+
+MotionState.propTypes = propTypes;
+MotionState.defaultProps = defaultProps;
 
 export default MotionState;

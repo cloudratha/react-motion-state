@@ -1,5 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { MotionState } from '..';
+
+const propTypes = {
+  defaultStyle: PropTypes.objectOf(PropTypes.number),
+  states: PropTypes.objectOf(
+    PropTypes.objectOf(
+      PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
+    ),
+  ).isRequired,
+  children: PropTypes.func.isRequired,
+  onRest: PropTypes.func,
+};
+
+const defaultProps = {
+  defaultStyle: null,
+  onRest: null,
+};
 
 class DirectionalStateMotion extends React.Component {
   constructor(props) {
@@ -32,5 +50,8 @@ class DirectionalStateMotion extends React.Component {
     );
   }
 }
+
+DirectionalStateMotion.propTypes = propTypes;
+DirectionalStateMotion.defaultProps = defaultProps;
 
 export default DirectionalStateMotion;

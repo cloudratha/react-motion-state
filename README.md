@@ -79,6 +79,8 @@ The current transition state is injected in to allow you to customise the motion
 | willLeave     | Function      | Called repeatedly while a style is unmounting | False    |
 | didLeave      | Function      | Called when a style has finished unmounting   | False    |
 
+if the `styles` prop is a function (supports React-Motion's implementation) there will be an additional call as the initial state is populated. 
+
 See [React-Motion Docs: TransitionMotion](https://github.com/chenglou/react-motion/blob/master/README.md#transitionmotion-)
 
 #### States
@@ -98,7 +100,7 @@ Updating the `direction` prop will trigger the motion between states.
 There is potentially no limit to the amount of states that you can apply.
 
 ```jsx
-<DirectionMotionState
+<DirectionalMotionState
   defaultStyle={{ x: 0 }}
   states={{
     open: { x: spring(0) },
@@ -116,7 +118,7 @@ There is potentially no limit to the amount of states that you can apply.
       />
     )
   }
-</DirectionMotionState>
+</DirectionalMotionState>
 ```
 
 #### API

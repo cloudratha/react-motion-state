@@ -4,11 +4,24 @@ import PropTypes from 'prop-types';
 import { DirectionalMotionState } from '..';
 
 const propTypes = {
+  in: PropTypes.bool,
   unmountOnExit: PropTypes.bool,
+  defaultStyle: PropTypes.objectOf(PropTypes.number),
+  onEnter: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
+  ).isRequired,
+  onExit: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
+  ).isRequired,
+  children: PropTypes.func.isRequired,
+  onRest: PropTypes.func,
 };
 
 const defaultProps = {
+  in: false,
   unmountOnExit: false,
+  defaultStyle: null,
+  onRest: null,
 };
 
 class ConditionalMotionState extends React.Component {
