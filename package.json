@@ -1,13 +1,15 @@
 {
   "name": "react-motion-state",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Transition states powered by React-Motion",
-  "main": "index.js",
+  "main": "src/index.js",
   "peerDependencies": {
     "react": "^0.14.9 || ^15.3.0 || ^16.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.0",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.1",
@@ -16,10 +18,15 @@
     "eslint-config-airbnb": "^17.1.0",
     "react": ">=15.5.0",
     "react-dom": ">=15.5.0",
-    "webpack": "^4.14.0"
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cloudratha/react-motion-state.git"
   },
   "keywords": [],
   "author": "",
