@@ -90,3 +90,76 @@ See [React-Motion Docs: TransitionMotion](https://github.com/chenglou/react-moti
 - `exit` - An unmounting style is in motion.
 
 Although `exit-done` exists for unmounting styles at rest, this should never occur as the style should be removed.
+
+### DirectinalMotionState
+
+Predifned directions allow for easy toggling between states.
+Updating the `direction` prop will trigger the motion between states.
+There is potentially no limit to the amount of states that you can apply.
+
+```jsx
+<DirectionMotionState
+  defaultStyle={{ x: 0 }}
+  states={{
+    open: { x: spring(0) },
+    close: { x: spring(-100) },
+  }}
+  direction="open"
+>
+  {
+    (style, isAnimating) => (
+      <Sidedraw
+        style={{
+          transform: `translateX(${style.x}%)`,
+        }}
+        isAnimating={isAnimating}
+      />
+    )
+  }
+</DirectionMotionState>
+```
+
+#### API
+
+| Props         | Type     | Description                            | Required |
+|---------------|----------|----------------------------------------|----------|
+| states        | Object   | State object for applicable directions | True     |
+| defaultStyle  | Object   | Initial starting style                 | False    |
+| children      | Function | Child Function                         | True     |
+| onRest        | Function | Called when motion ends                | False    |
+
+### ConditionalMotionState
+
+Allows you to explicitly trigger the motion based on the `in` prop (similar to React-Transition-Group).
+
+```jsx
+<ConditionalMotionState
+  defaultStyle={{ opacity: 0 }}
+  onEnter={{
+    opacity: spring(1)
+  }}
+  onExit={{
+    opacity: spring(0)
+  }}
+  in={this.state.show}
+  unmountOnExit
+>
+  {
+    (style, isAnimating) => (
+      <button style={style}>{!isAnimating && 'Click Me'}</button>
+    )
+  }
+</ConditionalMotionState>
+```
+
+#### API
+
+| Props         | Type     | Default | Description                                   | Required |
+|---------------|----------|---------|-----------------------------------------------|----------|
+| in            | Boolean  | false   | Determines which state to transition to       | True     |
+| onEnter       | Object   | null    | Style object mapped to number or OpaqueConfig | True     |
+| onExit        | Object   | null    | Style object mapped to number or OpaqueConfig | True     |
+| defaultStyle  | Object   | null    | Initial starting style                        | False    |
+| children      | Function | null    | Child Function                                | True     |
+| onRest        | Function | null    | Called when motion ends                       | False    |
+| unmountOnExit | Boolean  | false   | Unmount child component after exiting motion  | False    |

@@ -29,6 +29,10 @@ class MotionState extends React.Component {
     if (this.state.animating) {
       this.setState({ animating: false });
     }
+
+    if (this.props.onRest) {
+      this.props.onRest();
+    }
   }
 
   render() {
