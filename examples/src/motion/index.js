@@ -17,10 +17,13 @@ storiesOf('MotionState', module)
     >
       {
         (style, isAnimating) => (
-          <div className="Emoji" style={{
-            left: `${style.left}%`,
-            top: `${style.top}%`,
-          }}>
+          <div
+            className="Emoji"
+            style={{
+              left: `${style.left}%`,
+              top: `${style.top}%`,
+            }}
+          >
             <span className="Emoji__eye">.</span>
             <span className="Emoji__eye">.</span>
             <div className="Emoji__mouth">{isAnimating ? ')' : '('}</div>

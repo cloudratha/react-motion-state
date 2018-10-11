@@ -34,12 +34,15 @@ storiesOf('ConditionalMotionState', module)
       >
         {
           (style, isAnimating) => (
-            <div className="Conditional" style={{
-              bottom: `${style.bottom}%`,
-              left: `${style.left}%`,
-              width: style.width,
-              transform: `translateX(${style.x}%)`,
-            }}>
+            <div
+              className="Conditional"
+              style={{
+                bottom: `${style.bottom}%`,
+                left: `${style.left}%`,
+                width: style.width,
+                transform: `translateX(${style.x}%)`,
+              }}
+            >
               {isAnimating && inProp && 'entering'}
               {isAnimating && !inProp && 'exiting'}
               {!isAnimating && inProp && 'entered'}

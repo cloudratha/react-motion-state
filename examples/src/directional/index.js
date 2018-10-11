@@ -26,12 +26,14 @@ storiesOf('DirectionalMotionState', module)
               width: spring(100),
               height: spring(100),
               borderRadius: spring(0),
-            }
+            },
           }}
-          direction={direction}>
+          direction={direction}
+        >
           {
             (style, isAnimating) => (
               <button
+                type="button"
                 className="Directional__button"
                 style={{
                   width: `${style.width}%`,

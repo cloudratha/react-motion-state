@@ -19,8 +19,8 @@ storiesOf('TransitionMotionState', module)
           },
           {
             key: 'two',
-            style: { x: 0 }
-          }
+            style: { x: 0 },
+          },
         ])}
         styles={object('Styles', [
           {
@@ -32,13 +32,13 @@ storiesOf('TransitionMotionState', module)
             key: 'two',
             data: { text: 'Item 2' },
             style: { x: spring(50) },
-          }
+          },
         ])}
-        willEnter={() => willEnter}
+        willEnter={null}
         willLeave={() => willLeave}
       >
         {
-          (interploatedStyles) => (
+          interploatedStyles => (
             <ul className="Reveal">
               {
                 interploatedStyles.map(config => (
