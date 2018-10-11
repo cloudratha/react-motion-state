@@ -25,46 +25,64 @@ const defaultProps = {
 };
 
 class ConditionalMotionState extends React.Component {
+  static getDerivedStateFromProps(props, state) {
+    if (props.in !== state.active) {
+      return {
+        active: props.in,
+        mount: (props.in && !state.mount),
+      };
+    }
+
+    return null;
+  }
+
   constructor(props) {
     super(props);
 
+    const { in: bool } = this.props;
+
     this.state = {
-      in: this.props.in,
-      mount: this.props.in,
+      active: bool,
+      mount: bool,
     };
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.in !== prevProps.in) {
-      this.setState({ in: this.props.in });
-
-      if (this.props.in && !this.state.mount) {
-        this.setState({ mount: true });
-      }
-    }
-  }
-
   maybeUnmount = () => {
-    if (!this.state.in && this.props.unmountOnExit) {
+    const { onRest, unmountOnExit } = this.props;
+    const { active } = this.state;
+
+    if (!active && unmountOnExit) {
       this.setState({ mount: false });
+    }
+
+    if (onRest) {
+      onRest();
     }
   }
 
   render() {
+    const {
+      defaultStyle,
+      onEnter,
+      onExit,
+      children,
+    } = this.props;
+    const { active, mount } = this.state;
+
     return (
       <React.Fragment>
         {
-          this.state.mount && (
+          mount && (
             <DirectionalMotionState
-              defaultStyle={this.props.defaultStyle}
+              defaultStyle={defaultStyle}
               states={{
-                in: this.props.onEnter,
-                out: this.props.onExit,
+                in: onEnter,
+                out: onExit,
               }}
-              direction={(this.state.in) ? 'in' : 'out'}
+              direction={(active) ? 'in' : 'out'}
               onRest={this.maybeUnmount}
             >
-              {this.props.children}
+              {children}
             </DirectionalMotionState>
           )
         }

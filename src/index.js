@@ -8,4 +8,4 @@ export {
   TransitionMotionState,
   DirectionalMotionState,
   ConditionalMotionState,
-}
+};

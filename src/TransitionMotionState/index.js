@@ -27,25 +27,27 @@ const propTypes = {
   willEnter: PropTypes.func,
   willLeave: PropTypes.func,
   didLeave: PropTypes.func,
-}
+};
 
 const defaultProps = {
   defaultStyles: null,
-  willEnter: () => { },
-  willLeave: () => { },
+  willEnter: null,
+  willLeave: null,
   didLeave: () => { },
-}
+};
 
 class TransitionMotionState extends React.Component {
   constructor(props) {
     super(props);
 
-    const styles = (typeof this.props.styles === 'function') ?
-      this.props.styles(this.props.defaultStyles) :
-      this.props.styles;
+    const { defaultStyles, styles } = this.props;
 
-    this.state = styles.reduce((accum, config) => {
-      accum[config.key] = 'initial';
+    const initialStyles = (typeof styles === 'function')
+      ? styles(defaultStyles)
+      : styles;
+
+    this.state = initialStyles.reduce((accum, config) => {
+      accum[config.key] = (defaultStyles) ? 'initial' : 'initial-done'; // eslint-disable-line no-param-reassign
       return accum;
     }, {});
 
@@ -56,70 +58,85 @@ class TransitionMotionState extends React.Component {
     Object.keys(this.styleRafs).forEach(key => raf.cancel(this.styleRafs[key]));
   }
 
-  checkAnimationDone(key, count = 0) {
-    this.styleRafs[key] = raf(() => {
-      if (count >= 2) {
-        this.setState({ [key]: `${this.state[key]}-done` });
-      } else {
-        this.checkAnimationDone(key, count + 1);
-      }
-    })
-  }
-
   willEnter = (config) => {
-    const state = this.props.willEnter ? 'enter' : 'enter-done';
-    this.setState({ [config.key]: state });
+    const { willEnter } = this.props;
 
-    return this.props.willEnter ? this.props.willEnter(config) : config.style;
+    const state = willEnter ? 'enter' : 'enter-done';
+
+    raf(() => {
+      this.setState({ [config.key]: state });
+    });
+
+    return willEnter ? willEnter(config) : config.style || {};
   }
 
   willLeave = (config) => {
-    const state = this.props.willLeave ? 'exit' : 'exit-done';
+    const { willLeave } = this.props;
+    const { [config.key]: currentState } = this.state;
+
+    const state = willLeave ? 'exit' : 'exit-done';
 
     // willLeave will be called on each step to re-evaluate styles
     // So make sure we only update state when necessary
-    if (this.state[config.key] !== state) {
-      this.setState({ [config.key]: state });
+    if (currentState && currentState !== state) {
+      raf(() => {
+        this.setState({ [config.key]: state });
+      });
     }
 
-    return this.props.willLeave ? this.props.willLeave(config) : config.style;
+    return willLeave ? willLeave(config) : config.style;
   }
 
   getState = (config) => {
+    const { [config.key]: currentState } = this.state;
+
     // Everytime the state is called lets clear the previous check
     if (this.styleRafs[config.key]) {
       raf.cancel(this.styleRafs[config.key]);
     }
 
-    if (
-      this.state[config.key] &&
-      this.state[config.key].indexOf('done') === -1
-    ) {
+    if (currentState && currentState.indexOf('done') === -1) {
       this.checkAnimationDone(config.key);
     }
 
-    return this.state[config.key];
+    return currentState;
   }
 
   interpolateStyles = (styles) => {
+    const { children } = this.props;
+
     const stateStyles = styles.map(config => ({
       ...config,
       data: {
         ...config.data,
-        transition: this.getState(config)
-      }
+        transition: this.getState(config),
+      },
     }));
-    return this.props.children(stateStyles);
+
+    return children(stateStyles);
+  }
+
+  checkAnimationDone(key, count = 0) {
+    this.styleRafs[key] = raf(() => {
+      if (count >= 2) {
+        const { [key]: currentState } = this.state;
+        this.setState({ [key]: `${currentState}-done` });
+      } else {
+        this.checkAnimationDone(key, count + 1);
+      }
+    });
   }
 
   render() {
+    const { defaultStyles, styles, didLeave } = this.props;
+
     return (
       <TransitionMotion
-        defaultStyles={this.props.defaultStyles}
-        styles={this.props.styles}
+        defaultStyles={defaultStyles}
+        styles={styles}
         willEnter={this.willEnter}
         willLeave={this.willLeave}
-        didLeave={this.props.didLeave}
+        didLeave={didLeave}
       >
         {this.interpolateStyles}
       </TransitionMotion>

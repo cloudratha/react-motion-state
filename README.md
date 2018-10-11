@@ -126,6 +126,7 @@ There is potentially no limit to the amount of states that you can apply.
 | Props         | Type     | Description                            | Required |
 |---------------|----------|----------------------------------------|----------|
 | states        | Object   | State object for applicable directions | True     |
+| direction     | String   | The active motion state                | True     |
 | defaultStyle  | Object   | Initial starting style                 | False    |
 | children      | Function | Child Function                         | True     |
 | onRest        | Function | Called when motion ends                | False    |

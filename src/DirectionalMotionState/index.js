@@ -10,6 +10,7 @@ const propTypes = {
       PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
     ),
   ).isRequired,
+  direction: PropTypes.string.isRequired,
   children: PropTypes.func.isRequired,
   onRest: PropTypes.func,
 };
@@ -20,32 +21,41 @@ const defaultProps = {
 };
 
 class DirectionalStateMotion extends React.Component {
+  static getDerivedStateFromProps(props, state) {
+    if (props.direction !== state.direction) {
+      return { direction: props.direction };
+    }
+
+    return null;
+  }
+
   constructor(props) {
     super(props);
 
+    const { direction } = this.props;
+
     this.state = {
-      direction: this.props.direction,
+      direction,
     };
   }
 
-  componentDidUpdate() {
-    if (this.state.direction !== this.props.direction) {
-      this.setState({ direction: this.props.direction });
-    }
-  }
-
   getStyle = () => {
-    return this.props.states[this.state.direction];
+    const { states } = this.props;
+    const { direction } = this.state;
+
+    return states[direction];
   }
 
   render() {
+    const { defaultStyle, onRest, children } = this.props;
+
     return (
       <MotionState
-        defaultStyle={this.props.defaultStyle}
+        defaultStyle={defaultStyle}
         style={this.getStyle()}
-        onRest={this.props.onRest}
+        onRest={onRest}
       >
-        {this.props.children}
+        {children}
       </MotionState>
     );
   }
