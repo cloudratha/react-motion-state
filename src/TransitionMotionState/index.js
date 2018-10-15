@@ -55,7 +55,10 @@ class TransitionMotionState extends React.Component {
   }
 
   componentWillUnmount() {
-    Object.keys(this.styleRafs).forEach(key => raf.cancel(this.styleRafs[key]));
+    Object.keys(this.styleRafs).forEach((key) => {
+      raf.cancel(this.styleRafs[key]);
+      delete this.styleRafs[key];
+    });
   }
 
   willEnter = (config) => {
@@ -67,7 +70,7 @@ class TransitionMotionState extends React.Component {
       this.setState({ [config.key]: state });
     });
 
-    return willEnter ? willEnter(config) : config.style || {};
+    return willEnter ? willEnter(config) : config.style;
   }
 
   willLeave = (config) => {
